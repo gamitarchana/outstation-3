@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'qartez',
 
     'rest_framework',
+	'storages',
 ]
 
 MIDDLEWARE = [
@@ -130,10 +131,15 @@ GA_VIEW_ID = ''
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '<database name>',
+        'USER': '<username>',
+        'PASSWORD':'<password>',
+        'HOST':'<DB Host>',
+        'PORT': '<DB Port>',
     }
 }
 
@@ -189,12 +195,26 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 
 #FAVICON_PATH = STATIC_URL + 'images/favicon.ico'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
+
+#Azure Media and Static storage Settings
+DEFAULT_FILE_STORAGE = 'outstation.azure.AzureMediaStorage'
+
+STATICFILES_STORAGE = 'outstation.azure.AzureStaticStorage'
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = '<Azure account Name>'
+AZURE_CUSTOM_DOMAIN = '<Azure domain>'
+STATIC_URL = '<Azure static blob storage url>'
+MEDIA_URL = '<Azure media blob storage url>'
+
 
 #LOGIN_REDIRECT_URL="comments"
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
@@ -219,6 +239,62 @@ AKISMET_SITE_URL = ''
 AKISMET_TEST_MODE = False
 
 SITE_ID = 1
+
+#Logging
+
+LOGGING = {
+	'version': 1,
+	'disable_existing_loggers': False,
+	'filters': {
+	'require_debug_false': {
+		'()': 'django.utils.log.RequireDebugFalse',
+		},
+	'require_debug_true': {
+		'()': 'django.utils.log.RequireDebugTrue',
+		},
+	},
+	'formatters': {
+	'django.server': {
+		'()': 'django.utils.log.ServerFormatter',
+		'format': '[%(server_time)s] %(message)s',
+		}
+	},
+	'handlers': {
+	'console': {
+		'level': 'INFO',
+		'filters': ['require_debug_true'],
+		'class': 'logging.StreamHandler',
+	},
+	'console_debug_false': {
+		'level': 'ERROR',
+		'filters': ['require_debug_false'],
+		'class': 'logging.StreamHandler',
+	},
+	'django.server': {
+		'level': 'INFO',
+		'class': 'logging.StreamHandler',
+		'formatter': 'django.server',
+	},
+    'errors_file':{
+		'level':'ERROR',
+		'class':'logging.FileHandler',
+        'filters': ['require_debug_false'],
+		'filename':'<LOG DIRECTORY>/ErrorLoggers.log',
+		},
+	},
+	'loggers': {
+		'django': {
+		'handlers': ['console', 'console_debug_false','errors_file'],
+		'level': 'INFO',
+	},
+	'django.server': {
+		'handlers': ['django.server'],
+		'level': 'INFO',
+		'propagate': False,
+		}
+	}
+}
+
 
 # Wagtail settings
 
