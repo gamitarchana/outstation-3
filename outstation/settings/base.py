@@ -304,6 +304,7 @@ WAGTAIL_SITE_NAME = "outstation"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = ''
+BASE_URL = '<outstation prod url>'
 
-BOOKING_FORM_URL = "https://dolfin.merucabs.com:5443/outstation?embed=true"
+BOOKING_FORM_URL = '<booking form url>'
+
