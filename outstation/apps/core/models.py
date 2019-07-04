@@ -17,7 +17,7 @@ from wagtailmetadata.models import MetadataMixin
 from django.utils.translation import ugettext_lazy
 
 class Place(index.Indexed, ClusterableModel):
-    name = models.CharField(max_length = 100, null = False, blank = False, unique=True)
+    name = models.CharField(max_length = 255, null = False, blank = False, unique=True)
     details = models.TextField(null = False, blank = False, help_text = "Add place details")
 
     duration_of_visit = models.DurationField(null = True,
@@ -105,7 +105,7 @@ class PlaceImages(Orderable):
 
 
 class LocationTag(models.Model):
-    tag = models.CharField(max_length = 100, blank = False, null = False, unique=True, help_text = "Location tag")
+    tag = models.CharField(max_length = 255, blank = False, null = False, unique=True, help_text = "Location tag")
 
     panels = [
                 FieldPanel("tag"),
@@ -122,7 +122,7 @@ class LocationTag(models.Model):
 register_snippet(LocationTag)
 
 class TripType(models.Model):
-    trip_type = models.CharField(max_length = 100, blank = False, null = False, unique=True, help_text = "Trip type")
+    trip_type = models.CharField(max_length = 255, blank = False, null = False, unique=True, help_text = "Trip type")
 
     panels = [
                 FieldPanel("trip_type"),
@@ -146,7 +146,7 @@ class FareTable(models.Model):
                                     default = VehicleTypeChoice.hatchback
                                 )
 
-    model = models.CharField(max_length = 100, blank = False, null = False)
+    model = models.CharField(max_length = 255, blank = False, null = False)
     seater = models.PositiveSmallIntegerField(null = False, default = 0)
     per_km_rate = models.PositiveSmallIntegerField(null = False, default = 0, verbose_name = ('Per km rate (\u20B9)'))
     vehicle_feature = models.CharField( max_length = 20,
@@ -174,7 +174,7 @@ register_snippet(FareTable)
 
 
 class PopularRoutes(ClusterableModel):
-    region = models.CharField(max_length = 200, blank = False, null = True, unique=True)
+    region = models.CharField(max_length = 255, blank = False, null = True, unique=True)
 
     panels = [
                 FieldPanel("region"),
@@ -198,7 +198,7 @@ class RouteLink(Orderable):
                     null = False,
                     blank = False
                 )
-    name = models.CharField(max_length = 200, blank = False, null = False, unique = True)
+    name = models.CharField(max_length = 255, blank = False, null = False, unique = True)
     url = models.URLField()
 
     panels = [
