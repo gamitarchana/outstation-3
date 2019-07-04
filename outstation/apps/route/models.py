@@ -75,7 +75,7 @@ class OutstationRoutePage(MetadataPageMixin, PageLDMixin, Page):
     likes = models.ManyToManyField(User, related_name = 'likes', blank = True)
 
     canonical_url = models.URLField(null = True, blank = False, help_text = "Canonical url for this page")
-    robots_tag = models.CharField(max_length = 100, null = True, blank = True)
+    robots_tag = models.CharField(max_length = 255, null = True, blank = True)
     excerpt = models.CharField(max_length = 255, null = True, blank = True)
 
     api_fields = [
