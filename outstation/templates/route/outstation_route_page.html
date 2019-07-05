@@ -16,9 +16,13 @@
 {% block content %}
 <div class="main-body">
   <div class="form-body">
-    {% with booking_form_url|add:self.excerpt as url %}
-      {% include 'booking_form.html' with url=url %}
-    {% endwith %}
+    {% if self.excerpt %}
+      {% with booking_form_url|add:"?"|add:self.excerpt as booking_url %}
+        {% include 'booking_form.html' with url=booking_url %}
+      {% endwith %}
+    {% else %}
+      {% include 'booking_form.html' with url=booking_form_url %}
+    {% endif %}
   </div>
   <div class="outstation-route-container">
     {% image self.banner_image fill-900x400 as banner_image %}
