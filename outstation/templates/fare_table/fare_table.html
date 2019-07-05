@@ -1,6 +1,7 @@
 {% load static %}
 {% block content %}
-<div class="background-gray fare-table">
+<div class="fare-table">
+  <div class="background-gray">
   <table class="table">
     <tbody>
       {% for fare in fares_table|slice:"5" %}
@@ -19,6 +20,8 @@
     </table>
   {% endif %}
   <div id="showLessBtn" class="show-more-less hide">Show less</div>
+</div>
+  <div style="font-size:14px;"><sup>*</sup>Terms and Conditions apply.</div>
 </div>
 <script type="text/javascript">
   $('#showMoreBtn').on('click', function(e){
